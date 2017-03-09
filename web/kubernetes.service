@@ -1,0 +1,11 @@
+[Unit]
+Description=Kubernetes deployer
+
+[Service]
+User=binder
+Group=www-data
+WorkingDirectory=/var/lib/binder/deploy/web/kubernetes
+ExecStart=/usr/bin/npm start
+
+[Install]
+WantedBy=multi-user.target
