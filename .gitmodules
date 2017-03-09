@@ -1,0 +1,6 @@
+[submodule "web/kubernetes"]
+	path = web/kubernetes
+	url = https://github.com/binder-project/binder-deploy-kubernetes.git
+[submodule "web/web"]
+	path = web/web
+	url = https://github.com/binder-project/binder-deploy-kubernetes.git
