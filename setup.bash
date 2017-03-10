@@ -3,7 +3,7 @@ BINDER_HOME="/var/lib/binder"
 GIT_DIR="${BINDER_HOME}/deploy"
 HOME="/var/lib/binder"
 
-apt-get install --yes npm nodejs-legacy
+apt-get install --yes npm nodejs-legacy nginx
 
 sudo wget https://storage.googleapis.com/kubernetes-release/release/v1.5.2/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
 sudo chmod +x /usr/local/bin/kubectl
@@ -28,3 +28,6 @@ ln -s ${GIT_DIR}/web/kubectl-proxy.service /etc/systemd/system/kubectl-proxy.ser
 ln -s ${GIT_DIR}/web/binder-web.service /etc/systemd/system/binder-web.service
 
 sudo systemctl start binder-web
+
+sudo ln -s ${GIT_DIR}/web/proxy.nginx.conf /etc/nginx/sites-enabled/proxy.conf
+sudo systemctl nginx restart
