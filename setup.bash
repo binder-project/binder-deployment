@@ -2,11 +2,14 @@
 BINDER_HOME="/var/lib/binder"
 GIT_DIR="${BINDER_HOME}/deploy"
 HOME="/var/lib/binder"
+apt-get install --yes npm nodejs-legacy nginx mongodb pwgen apt-transport-https
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+apt-get update
+apt-get install --yes docker-engine
 
-apt-get install --yes npm nodejs-legacy nginx mongodb pwgen
-
-sudo wget https://storage.googleapis.com/kubernetes-release/release/v1.5.2/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
-sudo chmod +x /usr/local/bin/kubectl
+wget https://storage.googleapis.com/kubernetes-release/release/v1.5.2/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
+chmod +x /usr/local/bin/kubectl
 
 adduser --disabled-password --disabled-login --system --gecos "Binder system user" --home ${BINDER_HOME} binder
 if [ -d ${GIT_DIR} ]; then
