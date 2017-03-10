@@ -27,6 +27,9 @@ sudo -u binder npm install
 cd ${GIT_DIR}/web/healthz
 sudo -u binder npm install
 
+cd ${GIT_DIR}/web/binder
+sudo -u binder npm install
+
 rm -rf ${BINDER_HOME}/.binder
 ln -s ${GIT_DIR}/config ${BINDER_HOME}/.binder
 
