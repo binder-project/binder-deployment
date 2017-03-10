@@ -3,7 +3,7 @@ BINDER_HOME="/var/lib/binder"
 GIT_DIR="${BINDER_HOME}/deploy"
 HOME="/var/lib/binder"
 
-apt-get install --yes npm nodejs-legacy nginx
+apt-get install --yes npm nodejs-legacy nginx mongodb
 
 sudo wget https://storage.googleapis.com/kubernetes-release/release/v1.5.2/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
 sudo chmod +x /usr/local/bin/kubectl
