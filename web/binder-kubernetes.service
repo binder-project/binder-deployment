@@ -1,5 +1,6 @@
 [Unit]
 Description=Kubernetes deployer
+Wants=kubectl-proxy.service
 
 [Service]
 User=binder
