@@ -5,6 +5,7 @@ Wants=binder-kubernetes.service binder-build.service
 [Service]
 User=binder
 Group=www-data
+EnvironmentFile=/var/lib/binder/apikey
 Environment=HOME=/var/lib/binder/
 WorkingDirectory=/var/lib/binder/deploy/web/web
 ExecStart=/usr/bin/npm start

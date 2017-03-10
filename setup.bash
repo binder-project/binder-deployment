@@ -3,7 +3,7 @@ BINDER_HOME="/var/lib/binder"
 GIT_DIR="${BINDER_HOME}/deploy"
 HOME="/var/lib/binder"
 
-apt-get install --yes npm nodejs-legacy nginx mongodb
+apt-get install --yes npm nodejs-legacy nginx mongodb pwgen
 
 sudo wget https://storage.googleapis.com/kubernetes-release/release/v1.5.2/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
 sudo chmod +x /usr/local/bin/kubectl
@@ -13,6 +13,10 @@ if [ -d ${GIT_DIR} ]; then
     cd /var/lib/binder/deploy && sudo -u binder git fetch && sudo -u binder git reset --hard origin/master & sudo -u binder git submodule update --init
 else
     sudo -u binder git clone --recursive https://github.com/yuvipanda/binder-deployment.git ${GIT_DIR}
+fi
+
+if [ ! -f ${BINDER_HOME}/apikey ]; then
+    echo "BINDER_API_KEY=$(pwgen -s 64 1)" > ${BINDER_HOME}/apikey
 fi
 
 sudo -u binder gcloud container clusters get-credentials binder-cluster-dev --zone=us-central1-b
