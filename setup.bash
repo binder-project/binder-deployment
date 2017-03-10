@@ -9,7 +9,11 @@ sudo wget https://storage.googleapis.com/kubernetes-release/release/v1.5.2/bin/l
 sudo chmod +x /usr/local/bin/kubectl
 
 adduser --disabled-password --disabled-login --system --gecos "Binder system user" --home ${BINDER_HOME} binder
-sudo -u binder git clone --recursive https://github.com/yuvipanda/binder-deployment.git ${GIT_DIR}
+if [ -d ${GIT_DIR} ]; then
+    cd /var/lib/binder/deploy && sudo -u binder git pull origin master & sudo -u binder git submodule update
+else
+    sudo -u binder git clone --recursive https://github.com/yuvipanda/binder-deployment.git ${GIT_DIR}
+fi
 
 sudo -u binder gcloud container clusters get-credentials binder-cluster-dev --zone=us-central1-b
 # Run npm install
@@ -30,4 +34,5 @@ ln -s ${GIT_DIR}/web/binder-web.service /etc/systemd/system/binder-web.service
 sudo systemctl start binder-web
 
 sudo ln -s ${GIT_DIR}/web/proxy.nginx.conf /etc/nginx/sites-enabled/proxy.conf
-sudo systemctl nginx restart
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo systemctl restart nginx
