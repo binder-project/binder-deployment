@@ -34,6 +34,7 @@ ln -s ${GIT_DIR}/web/binder-kubernetes.service /etc/systemd/system/binder-kubern
 ln -s ${GIT_DIR}/web/kubectl-proxy.service /etc/systemd/system/kubectl-proxy.service
 ln -s ${GIT_DIR}/web/binder-web.service /etc/systemd/system/binder-web.service
 ln -s ${GIT_DIR}/web/binder-healthz.service /etc/systemd/system/binder-healthz.service
+ln -s ${GIT_DIR}/web/binder-build.service /etc/systemd/system/binder-build.service
 
 sudo systemctl start binder-web binder-healthz
 

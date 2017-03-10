@@ -7,3 +7,6 @@
 [submodule "web/healthz"]
 	path = web/healthz
 	url = https://github.com/binder-project/binder-health-checker.git
+[submodule "web/build"]
+	path = web/build
+	url = https://github.com/binder-project/binder-build.git

@@ -1,0 +1,12 @@
+[Unit]
+Description=Binder docker builder
+
+[Service]
+User=binder
+Group=www-data
+Environment=HOME=/var/lib/binder/
+WorkingDirectory=/var/lib/binder/deploy/web/build
+ExecStart=/usr/bin/npm start
+
+[Install]
+WantedBy=multi-user.target

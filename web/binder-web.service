@@ -1,6 +1,6 @@
 [Unit]
 Description=Binder web
-Wants=binder-kubernetes.service
+Wants=binder-kubernetes.service binder-build.service
 
 [Service]
 User=binder
