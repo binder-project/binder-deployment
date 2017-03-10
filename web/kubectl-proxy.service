@@ -1,0 +1,11 @@
+[Unit]
+Description=Kubectl proxy service
+
+[Service]
+User=binder
+Group=www-data
+Environment=HOME=/var/lib/binder
+ExecStart=/usr/local/bin/kubectl proxy --port=8085
+
+[Install]
+WantedBy=multi-user.target
