@@ -25,3 +25,4 @@ ln -s ${GIT_DIR}/config ${BINDER_HOME}/.binder
 
 ln -s ${GIT_DIR}/web/kubernetes.service /etc/systemd/system/kubernetes.service
 ln -s ${GIT_DIR}/web/kubectl-proxy.service /etc/systemd/system/kubectl-proxy.service
+ln -s ${GIT_DIR}/web/binder-web.service /etc/systemd/system/binder-web.service
