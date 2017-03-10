@@ -10,3 +10,6 @@
 [submodule "web/build"]
 	path = web/build
 	url = https://github.com/binder-project/binder-build.git
+[submodule "web/registry"]
+	path = web/registry
+	url = https://github.com/binder-project/binder-registry.git

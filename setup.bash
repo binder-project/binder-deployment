@@ -34,6 +34,9 @@ sudo -u binder npm install
 cd ${GIT_DIR}/web/binder
 sudo -u binder npm install
 
+cd ${GIT_DIR}/web/registry
+sudo -u binder npm install
+
 rm -rf ${BINDER_HOME}/.binder
 ln -s ${GIT_DIR}/config ${BINDER_HOME}/.binder
 
@@ -42,6 +45,7 @@ ln -s ${GIT_DIR}/web/kubectl-proxy.service /etc/systemd/system/kubectl-proxy.ser
 ln -s ${GIT_DIR}/web/binder-web.service /etc/systemd/system/binder-web.service
 ln -s ${GIT_DIR}/web/binder-healthz.service /etc/systemd/system/binder-healthz.service
 ln -s ${GIT_DIR}/web/binder-build.service /etc/systemd/system/binder-build.service
+ln -s ${GIT_DIR}/web/binder-registry.service /etc/systemd/system/binder-registry.service
 
 sudo systemctl start binder-web binder-healthz
 
