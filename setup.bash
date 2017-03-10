@@ -24,14 +24,18 @@ sudo -u binder npm install
 cd ${GIT_DIR}/web/web
 sudo -u binder npm install
 
+cd ${GIT_DIR}/web/healthz
+sudo -u binder npm install
+
 rm -rf ${BINDER_HOME}/.binder
 ln -s ${GIT_DIR}/config ${BINDER_HOME}/.binder
 
 ln -s ${GIT_DIR}/web/binder-kubernetes.service /etc/systemd/system/binder-kubernetes.service
 ln -s ${GIT_DIR}/web/kubectl-proxy.service /etc/systemd/system/kubectl-proxy.service
 ln -s ${GIT_DIR}/web/binder-web.service /etc/systemd/system/binder-web.service
+ln -s ${GIT_DIR}/web/binder-healthz.service /etc/systemd/system/binder-healthz.service
 
-sudo systemctl start binder-web
+sudo systemctl start binder-web binder-healthz
 
 sudo ln -s ${GIT_DIR}/web/proxy.nginx.conf /etc/nginx/sites-enabled/proxy.conf
 sudo rm -f /etc/nginx/sites-enabled/default

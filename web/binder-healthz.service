@@ -1,0 +1,14 @@
+[Unit]
+Description=Binder health checker
+Wants=binder-kubernetes.service binder-web.service
+
+[Service]
+User=binder
+Group=www-data
+Environment=HOME=/var/lib/binder/
+WorkingDirectory=/var/lib/binder/deploy/web/healthz
+ExecStart=/usr/bin/npm start
+
+[Install]
+WantedBy=multi-user.target
+
