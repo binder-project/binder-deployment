@@ -10,7 +10,7 @@ sudo chmod +x /usr/local/bin/kubectl
 
 adduser --disabled-password --disabled-login --system --gecos "Binder system user" --home ${BINDER_HOME} binder
 if [ -d ${GIT_DIR} ]; then
-    cd /var/lib/binder/deploy && sudo -u binder git pull origin master & sudo -u binder git submodule update
+    cd /var/lib/binder/deploy && sudo -u binder git pull origin master & sudo -u binder git submodule update --init
 else
     sudo -u binder git clone --recursive https://github.com/yuvipanda/binder-deployment.git ${GIT_DIR}
 fi
