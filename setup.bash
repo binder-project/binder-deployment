@@ -3,10 +3,16 @@ BINDER_HOME="/var/lib/binder"
 GIT_DIR="${BINDER_HOME}/deploy"
 HOME="/var/lib/binder"
 apt-get install --yes npm nodejs-legacy nginx mongodb pwgen apt-transport-https
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+wget -qO - https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+echo "deb https://artifacts.elastic.co/packages/2.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list
+
 apt-get update
-apt-get install --yes docker-ce
+apt-get install --yes docker-ce logstash elasticsearch kibana
 
 wget https://storage.googleapis.com/kubernetes-release/release/v1.5.2/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
 chmod +x /usr/local/bin/kubectl
@@ -22,7 +28,7 @@ if [ ! -f ${BINDER_HOME}/apikey ]; then
     echo "BINDER_API_KEY=$(pwgen -s 64 1)" > ${BINDER_HOME}/apikey
 fi
 
-sudo -u binder gcloud container clusters get-credentials binder-cluster-dev --zone=us-central1-b
+sudo -u binder gcloud container clusters get-credentials binder-cluster-dev --zone=us-central1-a
 # Run npm install
 
 cd ${GIT_DIR}/web/kubernetes
