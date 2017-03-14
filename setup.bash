@@ -9,7 +9,7 @@ wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add
 
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
-echo "deb https://artifacts.elastic.co/packages/2.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list
+echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list
 
 apt-get update
 apt-get install --yes docker-ce logstash elasticsearch kibana
@@ -52,7 +52,10 @@ ln -s ${GIT_DIR}/web/binder-web.service /etc/systemd/system/binder-web.service
 ln -s ${GIT_DIR}/web/binder-healthz.service /etc/systemd/system/binder-healthz.service
 ln -s ${GIT_DIR}/web/binder-build.service /etc/systemd/system/binder-build.service
 
-sudo systemctl start binder-web binder-healthz
+ln -s ${GIT_DIR}/services/kibana.yml /etc/kibana/kibana.yml
+ln -s ${GIT_DIR}/services/logstash.conf /etc/logstash/conf.d/logstash.conf
+
+sudo systemctl start binder-web binder-healthz logstash elasticsearch kibana
 
 sudo ln -s ${GIT_DIR}/web/proxy.nginx.conf /etc/nginx/sites-enabled/proxy.conf
 sudo rm -f /etc/nginx/sites-enabled/default
