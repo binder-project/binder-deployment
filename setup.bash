@@ -2,7 +2,7 @@
 BINDER_HOME="/var/lib/binder"
 GIT_DIR="${BINDER_HOME}/deploy"
 HOME="/var/lib/binder"
-apt-get install --yes npm nodejs-legacy nginx mongodb pwgen apt-transport-https
+apt-get install --yes npm nodejs-legacy nginx mongodb pwgen apt-transport-https openjdk-8-jdk
 
 wget -qO - https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
@@ -13,6 +13,7 @@ echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee 
 
 apt-get update
 apt-get install --yes docker-ce logstash elasticsearch kibana
+systemctl start logstash elasticsearch
 
 wget https://storage.googleapis.com/kubernetes-release/release/v1.5.2/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
 chmod +x /usr/local/bin/kubectl
