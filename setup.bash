@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 BINDER_HOME="/var/lib/binder"
 GIT_DIR="${BINDER_HOME}/deploy"
 HOME="/var/lib/binder"
