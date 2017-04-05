@@ -14,7 +14,6 @@ echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee 
 
 apt-get update
 apt-get install --yes docker-ce logstash elasticsearch kibana
-systemctl start logstash elasticsearch
 
 wget https://storage.googleapis.com/kubernetes-release/release/v1.5.2/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
 chmod +x /usr/local/bin/kubectl
@@ -54,8 +53,8 @@ ln -s ${GIT_DIR}/web/binder-web.service /etc/systemd/system/binder-web.service
 ln -s ${GIT_DIR}/web/binder-healthz.service /etc/systemd/system/binder-healthz.service
 ln -s ${GIT_DIR}/web/binder-build.service /etc/systemd/system/binder-build.service
 
-ln -s ${GIT_DIR}/services/kibana.yml /etc/kibana/kibana.yml
-ln -s ${GIT_DIR}/services/logstash.conf /etc/logstash/conf.d/logstash.conf
+ln -sf ${GIT_DIR}/services/kibana.yml /etc/kibana/kibana.yml
+ln -sf ${GIT_DIR}/services/logstash.conf /etc/logstash/conf.d/logstash.conf
 
 sudo systemctl start binder-web binder-healthz logstash elasticsearch kibana
 
