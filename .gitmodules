@@ -13,6 +13,3 @@
 [submodule "web/logging"]
 	path = web/logging
 	url = https://www.github.com/binder-project/binder-logging
-[submodule "services/logging/configuration"]
-	path = services/logging/configuration
-	url = https://github.com/andrewosh/temp-elasticsearch-config
