@@ -71,4 +71,4 @@ sudo rm -f /etc/nginx/sites-enabled/default
 sudo systemctl restart nginx
 
 cd ${GIT_DIR}/services/logging/configuration
-sudo -u binder npm run configure
+sudo -u binder HOME=$BINDER_HOME npm run configure
