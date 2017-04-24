@@ -10,3 +10,6 @@
 [submodule "web/build"]
 	path = web/build
 	url = https://github.com/binder-project/binder-build.git
+[submodule "services/logging/configuration"]
+	path = services/logging/configuration
+	url = https://www.github.com/andrewosh/temp-elasticsearch-config

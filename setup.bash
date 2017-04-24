@@ -10,10 +10,15 @@ wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add
 
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
+echo "deb https://packages.elastic.co/logstash/2.1/debian stable main" | sudo tee -a /etc/apt/sources.list.d/logstash-2.x.list
 echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list
 
 apt-get update
-apt-get install --yes docker-ce logstash elasticsearch kibana
+apt-get install --yes docker-ce logstash=1:2.1.3-1 elasticsearch kibana
+
+/opt/logstash/bin/plugin install logstash-input-tcp
+/opt/logstash/bin/plugin install logstash-output-elasticsearch
+/opt/logstash/bin/plugin install logstash-output-websocket_topics
 
 wget https://storage.googleapis.com/kubernetes-release/release/v1.5.2/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
 chmod +x /usr/local/bin/kubectl
@@ -44,6 +49,9 @@ sudo -u binder npm install
 cd ${GIT_DIR}/web/build
 sudo -u binder npm install
 
+cd ${GIT_DIR}/services/logging/configuration
+sudo -u binder npm install
+
 rm -rf ${BINDER_HOME}/.binder
 ln -s ${GIT_DIR}/config ${BINDER_HOME}/.binder
 
@@ -54,10 +62,13 @@ ln -s ${GIT_DIR}/web/binder-healthz.service /etc/systemd/system/binder-healthz.s
 ln -s ${GIT_DIR}/web/binder-build.service /etc/systemd/system/binder-build.service
 
 ln -sf ${GIT_DIR}/services/kibana.yml /etc/kibana/kibana.yml
-ln -sf ${GIT_DIR}/services/logstash.conf /etc/logstash/conf.d/logstash.conf
+ln -sf ${GIT_DIR}/services/logging/logstash.conf /etc/logstash/conf.d/logstash.conf
 
 sudo systemctl start binder-web binder-healthz logstash elasticsearch kibana
 
 sudo ln -s ${GIT_DIR}/web/proxy.nginx.conf /etc/nginx/sites-enabled/proxy.conf
 sudo rm -f /etc/nginx/sites-enabled/default
 sudo systemctl restart nginx
+
+cd ${GIT_DIR}/services/logging/configuration
+sudo -u binder HOME=$BINDER_HOME npm run configure
