@@ -3,6 +3,7 @@ set -e
 BINDER_HOME="/var/lib/binder"
 GIT_DIR="${BINDER_HOME}/deploy"
 HOME="/var/lib/binder"
+apt-get update
 apt-get install --yes npm nodejs-legacy nginx mongodb pwgen apt-transport-https openjdk-8-jdk
 
 wget -qO - https://download.docker.com/linux/ubuntu/gpg | apt-key add -
