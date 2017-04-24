@@ -1,8 +1,15 @@
 #!/bin/bash
 set -e
+BINDER_GITHUB_TOKEN="${1}"
 BINDER_HOME="/var/lib/binder"
 GIT_DIR="${BINDER_HOME}/deploy"
 HOME="/var/lib/binder"
+
+if [ -z "${BINDER_GITHUB_TOKEN}" ]; then
+    echo "Need to pass in a GitHub API token as param 1"
+    exit 1
+fi
+
 apt-get update
 apt-get install --yes npm nodejs-legacy nginx mongodb pwgen apt-transport-https openjdk-8-jdk
 
@@ -34,6 +41,8 @@ fi
 if [ ! -f ${BINDER_HOME}/apikey ]; then
     echo "BINDER_API_KEY=$(pwgen -s 64 1)" > ${BINDER_HOME}/apikey
 fi
+
+echo "BINDER_GITHUB_TOKEN=${BINDER_GITHUB_TOKEN}" > ${BINDER_HOME}/github_token
 
 sudo -u binder gcloud container clusters get-credentials binder-cluster-dev --zone=us-central1-a
 # Run npm install
