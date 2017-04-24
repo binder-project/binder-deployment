@@ -6,6 +6,7 @@ User=binder
 Group=www-data
 Environment=HOME=/var/lib/binder
 ExecStart=/usr/local/bin/kubectl proxy --port=8085
+Restart=Always
 
 [Install]
 WantedBy=multi-user.target

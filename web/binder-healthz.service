@@ -9,6 +9,7 @@ EnvironmentFile=/var/lib/binder/apikey
 Environment=HOME=/var/lib/binder/
 WorkingDirectory=/var/lib/binder/deploy/web/healthz
 ExecStart=/usr/bin/npm start
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
