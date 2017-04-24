@@ -3,7 +3,7 @@ Description=Binder docker builder
 
 [Service]
 User=binder
-Group=www-data
+Group=docker
 EnvironmentFile=/var/lib/binder/apikey
 Environment=HOME=/var/lib/binder/
 WorkingDirectory=/var/lib/binder/deploy/web/build
